@@ -1,14 +1,10 @@
-from ..my_app.views import test
-import unittest
+# -*- coding: utf-8 -*-
 
-app = test()
+from .base import BaseTestCase
 
 
-class Test(unittest.TestCase):
+class TestMyApp(BaseTestCase):
+
     def test_request(self):
-        response = self.app.get('/')
+        response = self.client.get('/')
         assert response.status_code == 200
-
-
-if __name__ == '__main__':
-    unittest.main()
