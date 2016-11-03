@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from .blueprint import app_bp
-
+from my_app.blueprint import app_bp
+from .models import db, Occupation
+from flask import request, jsonify
 
 '''@app_bp.route('/')
 def index():
@@ -14,7 +15,6 @@ def test():
     return ('OK'), 200
 
 
-'''
 @app_bp.route('/occupation', methods=["POST"])
 def add_occupation():
     data = request.json
@@ -33,4 +33,3 @@ def add_occupation():
     db.session.commit()
 
     return jsonify({"Status": "Success"}), 201  # Created OK
-'''

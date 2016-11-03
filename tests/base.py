@@ -2,7 +2,7 @@
 
 from flask_testing import TestCase
 
-from ..main import create_app as real_create_app
+from ..app import create_app as real_create_app
 
 
 class BaseTestCase(TestCase):
