@@ -8,11 +8,13 @@ db = SQLAlchemy()
 
 
 def create_app():
+    from my_app.models import db
     app = Flask(__name__)
     app.register_blueprint(app_bp)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost/cadastro'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
+    app.db = db
     return app
 
 
