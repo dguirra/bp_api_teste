@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from my_app.blueprint import app_bp
+from .blueprint import app_bp
 from .models import db, Occupation
 from flask import request, jsonify
 

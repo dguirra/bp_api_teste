@@ -2,7 +2,7 @@
 
 from flask import Flask
 from my_app.blueprint import app_bp
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
