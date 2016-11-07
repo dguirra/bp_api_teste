@@ -15,21 +15,25 @@ class TestOccupation(BaseTestCase):
 
         assert occupation_count == 1
 
-
-''' def test_empty(self):
+    def test_empty(self):
         response = self.client.post('/occupation', data=json.dumps({'description': ''}),
                                     headers={'Content-Type': 'application/json'})
-        assert response.status_code == 400 '''
+        assert response.status_code == 400
 
 
 '''     occupation_count = Occupation.query.filter_by(description='teste').count()
-        assert occupation_count == 0 '''
+        assert occupation_count == 0
+'''
+
+    def test_occupation_same_name(self):
+        response = self.client.post('/occupation', data=json.dumps({'description': 'sameoccupation'}),
+                                    headers={'Content-Type': 'application/json'})
+        response = self.client.post('/occupation', data=json.dumps({'description': 'sameoccupation'}),
+                                    headers={'Content-Type': 'application/json'})
+    assert response.status_code == 409
 
 
-"""
-
-    def test_occupation_same_name
 
     def test_without_content_type (json)
 
-"""
+
