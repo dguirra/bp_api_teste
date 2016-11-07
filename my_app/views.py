@@ -8,18 +8,19 @@ from flask import request, jsonify
 @app_bp.route('/occupation', methods=["POST"])
 def add_occupation():
     data = request.json
-    if isinstance(data != [''], dict):
+    if not data.get('description'):  # Checa se está vazio
+        return jsonify({"Error": "Dados inseridos de forma incorreta"}), 400  # Bad request
+
+    if isinstance(data, dict):
         occupation = Occupation()
         occupation.description = data.get('description')
         db.session.add(occupation)
 
-    elif isinstance(data != [''], list):
+    elif isinstance(data, list):
         for row in data:
             occupation = Occupation()
             occupation.description = row.get('description')
             db.session.add(occupation)
-    else:
-        return jsonify({"Error": "Dados inseridos de forma incorreta"}), 400  # Bad request
     db.session.commit()
 
     return jsonify({"Status": "Success"}), 201  # Created OK

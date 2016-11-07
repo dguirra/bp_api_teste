@@ -20,7 +20,7 @@ class TestOccupation(BaseTestCase):
                                     headers={'Content-Type': 'application/json'})
         assert response.status_code == 400
 
-    def test_occupation_same_name(self):
+    def test_same_occupation(self):
         response = self.client.post('/occupation', data=json.dumps({'description': 'sameoccupation'}),
                                     headers={'Content-Type': 'application/json'})
         response = self.client.post('/occupation', data=json.dumps({'description': 'sameoccupation'}),
@@ -30,4 +30,4 @@ class TestOccupation(BaseTestCase):
     def test_without_content_type(json):
         response = self.client.post('/occupation', data=json.dumps({'description': 'teste'})
 
-        assert response.status_code == 201
+#  def test_without_param_description

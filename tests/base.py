@@ -21,3 +21,10 @@ class BaseTestCase(TestCase):
     def tearDown(self):
         super(TestCase, self).setUp()
         self.app.db.drop_all()
+
+
+'''    def create_occupation(self):
+        data = real_create_app()
+        data.description = description
+        data.save()
+'''
