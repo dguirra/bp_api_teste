@@ -9,21 +9,23 @@ from sqlalchemy import or_
 @app_bp.route('/occupation', methods=["POST"])
 def add_occupation():
     data = request.json
-    if not data.get('description'):  # Checa se está vazio
-        return jsonify({"Error": "Dados inseridos de forma incorreta ou campo vazio"}), 400  # Bad request
-
-    if isinstance(data, dict):
+#    query = query.filter(Occupation.description == description)
+    if isinstance(data, dict) and data.get('description'):  # Checa se está vazio
         occupation = Occupation()
         occupation.description = data.get('description')
         db.session.add(occupation)
 
-    elif isinstance(data, list):
+    elif isinstance(data, list) and all(row['description'] for row in data):
         for row in data:
             occupation = Occupation()
             occupation.description = row.get('description')
             db.session.add(occupation)
-    db.session.commit()
+    
+    else:
+        return jsonify({"Error": "Dados inseridos de forma incorreta ou campo vazio"}), 400  # Bad request
 
+    db.session.commit() 
+    
     return jsonify({"Status": "Success"}), 201  # Created OK
 
 
