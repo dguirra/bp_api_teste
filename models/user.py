@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from models import db, ModelMixin
 
 
-class User(db.Model):
+class User(db.Model, ModelMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)

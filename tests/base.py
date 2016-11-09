@@ -3,7 +3,6 @@
 from flask_testing import TestCase
 
 from ..app import create_app as real_create_app
-from ..my_app.models import Occupation, db
 
 
 class BaseTestCase(TestCase):
@@ -24,11 +23,10 @@ class BaseTestCase(TestCase):
         self.app.db.drop_all()
 
     def create_occupation(self, description):
-        import ipdb
-	ipdb.set_trace()
-	occupation = Occupation()
+        from models import Occupation
+
+        occupation = Occupation()
         occupation.description = description
-        db.session.commit()
+        occupation.save(commit=True)
 
         return occupation
-
