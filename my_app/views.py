@@ -3,30 +3,33 @@
 from .blueprint import app_bp
 from .models import db, Occupation
 from flask import request, jsonify
-from sqlalchemy import or_
+from sqlalchemy import or_, exc
 
 
 @app_bp.route('/occupation', methods=["POST"])
 def add_occupation():
     data = request.json
-#    query = query.filter(Occupation.description == description)
-    if isinstance(data, dict) and data.get('description'):  # Checa se está vazio
-        occupation = Occupation()
-        occupation.description = data.get('description')
-        db.session.add(occupation)
-
-    elif isinstance(data, list) and all(row['description'] for row in data):
-        for row in data:
+    try:
+        if isinstance(data, dict) and data.get('description'):  # Checa se está vazio
             occupation = Occupation()
-            occupation.description = row.get('description')
+            occupation.description = data.get('description')
             db.session.add(occupation)
-    
-    else:
-        return jsonify({"Error": "Dados inseridos de forma incorreta ou campo vazio"}), 400  # Bad request
 
-    db.session.commit() 
-    
-    return jsonify({"Status": "Success"}), 201  # Created OK
+        elif isinstance(data, list) and all(row['description'] for row in data):
+            for row in data:
+                occupation = Occupation()
+                occupation.description = row.get('description')
+                db.session.add(occupation)
+
+        else:
+            return jsonify({"Error": "Dados inseridos de forma incorreta ou campo vazio"}), 400  # Bad request
+
+        db.session.commit()
+
+        return jsonify({"Status": "Success"}), 201  # Created OK
+
+    except exc.IntegrityError:
+#        return jsonify(error='Duplicated User.'), 409
 
 
 @app_bp.route('/occupation/<params>')  # Por default é GET

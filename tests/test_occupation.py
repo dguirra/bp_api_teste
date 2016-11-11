@@ -6,8 +6,6 @@ import json
 
 
 class TestOccupation(BaseTestCase):
-    import ipdb
-    ipdb.set_trace()
 
     def test_save_success(self):
         response = self.client.post('/occupation', data=json.dumps({'description': 'teste'}),
