@@ -26,6 +26,7 @@ class BaseTestCase(TestCase):
     def create_occupation(self, description):
         occupation = Occupation()
         occupation.description = description
+        db.session.add(occupation)
         db.session.commit()
 
         return occupation
