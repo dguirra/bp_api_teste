@@ -26,8 +26,6 @@ class TestOccupation(BaseTestCase):
         assert response.status_code == 400
 
     def test_same_occupation(self):
-        import ipdb
-        ipdb.set_trace()
         self.create_occupation('sameoccupation')
         response = self.client.post('/occupation', data=json.dumps({'description': 'sameoccupation'}),
                                     headers={'Content-Type': 'application/json'})
