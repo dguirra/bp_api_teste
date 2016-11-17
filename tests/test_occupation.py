@@ -31,6 +31,12 @@ class TestOccupation(BaseTestCase):
                                     headers={'Content-Type': 'application/json'})
         assert response.status_code == 409
 
+    def test_get_occupation(self):
+        self.create_occupation('teste')
+        response = self.client.get(('/occupation/teste'),
+                                   headers={'Content-Type': 'application/json'})
+        assert response.status_code == 200
+
 
 '''    def test_without_content_type(self):
         response = self.client.post('/occupation', data=json.dumps({'description': 'teste'})
