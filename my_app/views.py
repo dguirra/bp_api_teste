@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from .models.occupation import Occupation, db
 from .blueprint import app_bp
-from .models import db, Occupation
 from flask import request, jsonify
 from sqlalchemy import or_, exc
 
@@ -29,7 +29,7 @@ def add_occupation():
         return jsonify({"Status": "Success"}), 201  # Created OK
 
     except exc.IntegrityError:
-#        return jsonify(error='Duplicated User.'), 409
+        return jsonify({"Error": "Duplicated occupation"}), 409
 
 
 @app_bp.route('/occupation/<params>')  # Por default é GET

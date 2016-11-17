@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from .base import BaseTestCase
-from ..my_app.models import Occupation
+from ..my_app.models.occupation import Occupation
 import json
 
 
@@ -26,11 +26,14 @@ class TestOccupation(BaseTestCase):
         assert response.status_code == 400
 
     def test_same_occupation(self):
+        import ipdb
+        ipdb.set_trace()
         self.create_occupation('sameoccupation')
         response = self.client.post('/occupation', data=json.dumps({'description': 'sameoccupation'}),
                                     headers={'Content-Type': 'application/json'})
         assert response.status_code == 409
-        
+
+
 '''    def test_without_content_type(self):
         response = self.client.post('/occupation', data=json.dumps({'description': 'teste'})
 '''

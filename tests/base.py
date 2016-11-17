@@ -3,7 +3,7 @@
 from flask_testing import TestCase
 
 from ..app import create_app as real_create_app
-from ..models.occupation import Occupation, db
+from ..my_app.models.occupation import Occupation, db
 
 
 class BaseTestCase(TestCase):
